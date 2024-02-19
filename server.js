@@ -1,7 +1,6 @@
-// server.js
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));
@@ -15,4 +14,5 @@ app.get('/api/data', (req, res) => {
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Deployed URL: ${process.env.DEPLOY_URL}`);
 });

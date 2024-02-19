@@ -1,46 +1,41 @@
 const express = require('express');
 const cors = require('cors');
-const axios = require('axios');
-const bodyParser = require('body-parser');
+const axios = require('axios'); // Import axios for making HTTP requests
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+// Explicitly set allowed origins
 app.use(cors({ origin: 'https://deploy2-hazel.vercel.app' }));
+
+// Serve static files from the "public" directory
 app.use(express.static('public'));
-app.use(bodyParser.json()); // Parse JSON requests
 
-// API endpoint for fetching data (GET request)
+// API endpoint for fetching data
 app.get('/api/data', async (req, res) => {
-  try {
-    const response = await axios.get('https://newsapi.org/v2/top-headlines', {
-      params: {
-        apiKey: 'f4cd38a719884bdc8de1bebf3a75eda6',
-        country: 'us',
-        category: 'general',
-      },
-    });
+    try {
+      const { category } = req.query;
+  
+      // Make a request to the News API with the specified category
+      const response = await axios.get('https://newsapi.org/v2/top-headlines', {
+        params: {
+          apiKey: 'f4cd38a719884bdc8de1bebf3a75eda6',
+          country: 'us',
+          category: category, // Default to 'general' if no category is provided
+        },
+      });
+  
+      const articles = response.data.articles;
+      // Send the articles back to the client
+      res.json({ articles });
+    } catch (error) {
+      console.error('Error fetching data from News API:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 
-    const articles = response.data.articles;
-    res.json({ articles });
-  } catch (error) {
-    console.error('Error fetching data from News API:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-// API endpoint for handling data sent from the client (POST request)
-app.post('/api/data', (req, res) => {
-  const requestData = req.body; // Access the data sent in the request body
-  console.log('Received data from client:', requestData);
-
-  // Handle the data as needed
-  // For example, you can store it in a database or perform other server-side operations
-
-  // Send a response back to the client
-  res.json({ message: 'Data received successfully' });
-});
-
+// Start the server
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Deployed URL: ${process.env.DEPLOY_URL}`);
 });

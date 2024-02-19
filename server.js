@@ -20,7 +20,7 @@ app.get('/api/data', async (req, res) => {
       const response = await axios.get('https://newsapi.org/v2/top-headlines', {
         params: {
           apiKey: 'f4cd38a719884bdc8de1bebf3a75eda6',
-          country: 'il',
+          country: 'us',
           category: category, // Default to 'general' if no category is provided
         },
       });

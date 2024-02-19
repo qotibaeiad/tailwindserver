@@ -24,7 +24,7 @@ app.get('/api/data', async (req, res) => {
     });
 
     const articles = response.data.articles;
-
+    print(articles)
     // Send the articles back to the client
     res.json({ articles });
   } catch (error) {
@@ -37,3 +37,6 @@ app.get('/api/data', async (req, res) => {
 app.listen(port, () => {
   console.log(`Deployed URL: ${process.env.DEPLOY_URL}`);
 });
+
+
+//mongodb+srv://qotibaeiad98:hrqk7o7dHydnV49a@newtailwind.wce8sqn.mongodb.net/?retryWrites=true&w=majority

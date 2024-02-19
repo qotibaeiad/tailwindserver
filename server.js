@@ -1,11 +1,11 @@
 const express = require('express');
-const cors = require('cors'); // Add this line to include the cors middleware
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Enable CORS
-app.use(cors());
+// Explicitly set allowed origins
+app.use(cors({ origin: 'https://deploy2-hazel.vercel.app' }));
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));

@@ -26,6 +26,7 @@ app.get('/api/data', async (req, res) => {
         try {
           const articleResponse = await axios.get(article.url);
           article.fullText = articleResponse.data; // Assuming the full text is available in the response, adjust accordingly
+          console.log(article.fullText)
         } catch (error) {
           console.error(`Error fetching content for ${article.title}:`, error.message);
           article.fullText = 'Error fetching content';

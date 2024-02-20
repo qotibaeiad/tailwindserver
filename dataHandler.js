@@ -82,6 +82,7 @@ function handleRegistrationRequest(mongoDB) {
   };
 }
 async function handleSearchRequest(mongoDB) {
+  console.log('search check')
   return async (req, res) => {
     try {
       const { query } = req.query;

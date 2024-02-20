@@ -97,7 +97,6 @@ function handleSearchRequest(mongoDB) {
           q: query,
         },
       });
-      console.log(response.data.articles)
       const articles = response.data.articles;
       // Send the articles back to the client
       res.json({ articles });

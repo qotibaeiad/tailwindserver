@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(cors({ origin: 'https://newsweb-phi.vercel.app' }));
 
 
+app.use(express.json());
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));

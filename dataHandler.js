@@ -26,27 +26,27 @@ function handleDataRequest(mongoDB) {
     }
   };
 }
-
-async function handleLoginRequest(req, res) {
-  try {
-    const { username, password } = req.query;
-
-    // Check the username and password in the MongoDB collection named 'users'
-    const userCollection = mongoDB.db.collection('user');
-    const user = await userCollection.findOne({ username, password });
-
-    if (user) {
-      // Username and password are correct
-      res.json({ success: true, message: 'Login successful!' });
-    } else {
-      // Username or password is incorrect
-      res.json({ success: false, message: 'Invalid credentials.' });
-    }
-  } catch (error) {
-    console.error('Error handling login request:', error.message);
-    res.status(500).json({ error: 'Internal Server Error' });
+function handleLoginRequest(mongoDB) {
+    return async (req, res) => {
+      try {
+        const { username, password } = req.query;
+  
+        // Check the username and password in the MongoDB collection named 'users'
+        const userCollection = mongoDB.db.collection('user');
+        const user = await userCollection.findOne({ username, password });
+  
+        if (user) {
+          res.json({ success: true, message: 'Login successful!' });
+        } else {
+          res.json({ success: false, message: 'Invalid credentials.' });
+        }
+      } catch (error) {
+        console.error('Error handling login request:', error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    };
   }
-}
+  
 
 module.exports = {
   handleDataRequest,

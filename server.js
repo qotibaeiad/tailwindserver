@@ -23,7 +23,7 @@ const mongoDB = new MongoDB('mongodb+srv://qotibaeiad98:hrqk7o7dHydnV49a@newtail
     app.get('/api/data', dataHandler.handleDataRequest(mongoDB));
 
     // API endpoint for login
-    app.get('/api/login', dataHandler.handleLoginRequest);
+    app.get('/api/login', loginHandler.handleLoginRequest(mongoDB));
   } catch (error) {
     console.error('Error initializing MongoDB:', error.message);
   }

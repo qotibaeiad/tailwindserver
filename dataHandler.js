@@ -30,7 +30,7 @@ function handleLoginRequest(mongoDB) {
     return async (req, res) => {
       try {
         const { username, password } = req.query;
-  
+        console.log(username,' password:',password);
         // Check the username and password in the MongoDB collection named 'users'
         const userCollection = mongoDB.db.collection('user');
         const user = await userCollection.findOne({ username, password });

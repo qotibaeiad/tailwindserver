@@ -29,6 +29,8 @@ const mongoDB = new MongoDB('mongodb+srv://qotibaeiad98:hrqk7o7dHydnV49a@newtail
     app.get('/api/login', dataHandler.handleLoginRequest(mongoDB));
     //API endpoint for rigester
     app.post('/api/rigester', dataHandler.handleRegistrationRequest(mongoDB));
+    // API endpoint for search
+    app.get('/api/search', dataHandler.handleSearchRequest(mongoDB));
   } catch (error) {
     console.error('Error initializing MongoDB:', error.message);
   }

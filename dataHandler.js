@@ -81,10 +81,36 @@ function handleRegistrationRequest(mongoDB) {
     }
   };
 }
+async function handleSearchRequest(mongoDB) {
+  return async (req, res) => {
+    try {
+      const { query } = req.query;
 
+      // Use MongoDB here if needed
+      // Example: const dataFromMongoDB = await mongoDB.getData();
+
+      // Make a request to the News API with the specified search query
+      const response = await axios.get('https://newsapi.org/v2/everything', {
+        params: {
+          apiKey: 'f4cd38a719884bdc8de1bebf3a75eda6',
+          q: query,
+        },
+      });
+      console.log(response.data.articles)
+      const articles = response.data.articles;
+      // Send the articles back to the client
+      res.json({ articles });
+    } catch (error) {
+      console.error('Error fetching data from News API:', error.message);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+}
 
 module.exports = {
   handleDataRequest,
   handleLoginRequest,
   handleRegistrationRequest,
+  handleSearchRequest, // Add this line
 };
+

@@ -8,6 +8,9 @@ const port = process.env.PORT || 3000;
 
 // Explicitly set allowed origins
 app.use(cors({ origin: 'https://newsweb-zeta.vercel.app' }));
+app.use(cors({ origin: 'https://deploy2-nine.vercel.app' }));
+
+
 
 // Serve static files from the "public" directory
 app.use(express.static('public'));

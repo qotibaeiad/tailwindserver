@@ -18,19 +18,30 @@ app.use(express.static('public'));
 // Connect to MongoDB
 const mongoDB = new MongoDB('mongodb+srv://qotibaeiad98:hrqk7o7dHydnV49a@newtailwind.wce8sqn.mongodb.net/?retryWrites=true&w=majority', 'tailwindweb');
 
+
 (async () => {
   try {
     await mongoDB.connect();
 
     // API endpoint for fetching data
-    app.get('/api/data', dataHandler.handleDataRequest(mongoDB));
+    app.get('/api/data', (req, res) => {
+      dataHandler.handleDataRequest(mongoDB)(req, res);
+    });
 
     // API endpoint for login
-    app.get('/api/login', dataHandler.handleLoginRequest(mongoDB));
-    //API endpoint for rigester
-    app.post('/api/rigester', dataHandler.handleRegistrationRequest(mongoDB));
+    app.get('/api/login', (req, res) => {
+      dataHandler.handleLoginRequest(mongoDB)(req, res);
+    });
+
+    // API endpoint for registration
+    app.post('/api/register', (req, res) => {
+      dataHandler.handleRegistrationRequest(mongoDB)(req, res);
+    });
+
     // API endpoint for search
-    app.get('/api/search', dataHandler.handleSearchRequest(mongoDB));
+    app.get('/api/search', (req, res) => {
+      dataHandler.handleSearchRequest(mongoDB)(req, res);
+    });
   } catch (error) {
     console.error('Error initializing MongoDB:', error.message);
   }

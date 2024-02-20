@@ -48,9 +48,42 @@ function handleLoginRequest(mongoDB) {
       }
     };
   }
+
+
+  //user rigester
+
+  function handleRegistrationRequest(mongoDB) {
+    return async (req, res) => {
+      try {
+        const { username, password, email, phone, category } = req.body; // Assuming data is sent in the request body
+  
+        // Check if the required fields are present
+        if (!username || !password || !email || !phone || !category) {
+          return res.status(400).json({ success: false, message: 'All fields are required.' });
+        }
+  
+        // Check if the username is already taken
+        const userCollection = mongoDB.db.collection('user');
+        const existingUser = await userCollection.findOne({ username });
+  
+        if (existingUser) {
+          return res.status(400).json({ success: false, message: 'Username already taken.' });
+        }
+  
+        // Insert the new user into the MongoDB collection
+        await userCollection.insertOne({ username, password, email, phone, category });
+  
+        res.json({ success: true, message: 'User registered successfully.' });
+      } catch (error) {
+        console.error('Error handling registration request:', error.message);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
+      }
+    };
+  }
   
 
 module.exports = {
   handleDataRequest,
   handleLoginRequest,
+  handleRegistrationRequest,
 };

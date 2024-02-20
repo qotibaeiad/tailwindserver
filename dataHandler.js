@@ -55,7 +55,7 @@ function handleLoginRequest(mongoDB) {
   function handleRegistrationRequest(mongoDB) {
     return async (req, res) => {
       try {
-        const { username, password, email, phone, category } = req.body; // Assuming data is sent in the request body
+        const { username, password, email, phone, category } = req.query; // Assuming data is sent in the request body
   
         // Check if the required fields are present
         if (!username || !password || !email || !phone || !category) {

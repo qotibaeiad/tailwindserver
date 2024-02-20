@@ -40,6 +40,7 @@ const mongoDB = new MongoDB('mongodb+srv://qotibaeiad98:hrqk7o7dHydnV49a@newtail
 
     // API endpoint for search
     app.get('/api/search', (req, res) => {
+      console.log('search come');
       dataHandler.handleSearchRequest(mongoDB)(req, res);
     });
   } catch (error) {

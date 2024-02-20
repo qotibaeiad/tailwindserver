@@ -36,8 +36,10 @@ function handleLoginRequest(mongoDB) {
         const user = await userCollection.findOne({ username, password });
   
         if (user) {
+            console.log("login succses");
           res.json({ success: true, message: 'Login successful!' });
         } else {
+            console.log("login faild");
           res.json({ success: false, message: 'Invalid credentials.' });
         }
       } catch (error) {

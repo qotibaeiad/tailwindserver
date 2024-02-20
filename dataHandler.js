@@ -32,7 +32,7 @@ async function handleLoginRequest(req, res) {
     const { username, password } = req.query;
 
     // Check the username and password in the MongoDB collection named 'users'
-    const userCollection = mongoDB.db.collection('users');
+    const userCollection = mongoDB.db.collection('user');
     const user = await userCollection.findOne({ username, password });
 
     if (user) {

@@ -7,7 +7,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Explicitly set allowed origins
-app.use(cors({ origin: 'https://newsweb-phi.vercel.app' }));
+app.use(cors({ origin: 'https://newsweb-phi.vercel.app'}));
+app.use(cors({ origin: 'https://deploy2-omega.vercel.app'}));
+
 
 
 app.use(express.json());
